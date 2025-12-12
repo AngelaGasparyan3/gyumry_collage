@@ -1,0 +1,22 @@
+<%# app/views/programs/show.html.erb - Program detail page %>
+
+<div class="program-show">
+  <h1 class="section-title"><%= @program.name %></h1>
+  <p class="program-dept">Բաժին: <%= link_to @department.name, department_path(@department) %></p>
+
+  <div class="program-media" style="margin-top:12px;">
+    <% if @program.image.attached? %>
+      <%= image_tag url_for(@program.image.variant(resize_to_limit: [1000, 600])), alt: @program.name, style: "width:100%;border-radius:8px;" %>
+    <% else %>
+      <%= image_tag "/images/program-placeholder.png", alt: @program.name, style: "width:100%;border-radius:8px;" %>
+    <% end %>
+  </div>
+
+  <div class="program-description" style="margin-top:16px;">
+    <%= simple_format(@program.description) %>
+  </div>
+
+  <p style="margin-top:18px;">
+    <%= link_to "Վերադառնալ բաժնի էջին", department_path(@department), class: "btn secondary" %>
+  </p>
+</div>

@@ -15,9 +15,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['GSTC_DB_USER'] || 'gstc_user' %>
+  password: <%= ENV['GSTC_DB_PASSWORD'] || 'gstc_pass' %>
+  host: <%= ENV['GSTC_DB_HOST'] || 'localhost' %>
 
 development:
   <<: *default
@@ -80,5 +81,6 @@ test:
 production:
   <<: *default
   database: gyumri_college_production
-  username: gyumri_college
-  password: <%= ENV["GYUMRI_COLLEGE_DATABASE_PASSWORD"] %>
+  username: <%= ENV['GSTC_DB_USER'] %>
+  password: <%= ENV['GSTC_DB_PASSWORD'] %>
+  host: <%= ENV['GSTC_DB_HOST'] %>

@@ -13,3 +13,222 @@
  *= require_tree .
  *= require_self
  */
+ /* Gyumri State Technical College styles
+    Place this file at app/assets/stylesheets/application.css
+    It is automatically picked up by the Rails asset pipeline.
+ */
+
+ /* Base */
+ .gstc-body {
+   margin: 0;
+   font-family: "Segoe UI", Arial, sans-serif;
+   background: #fff8ec;
+   color: #2f2f2f;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+ }
+
+ /* Header */
+ .site-header {
+   background: #ffe1a9;
+   border-radius: 18px;
+   margin: 20px;
+ }
+ .site-header-inner {
+   max-width: 1200px;
+   margin: 0 auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 16px;
+ }
+ .brand {
+   display: flex;
+   align-items: center;
+ }
+ .brand-logo {
+   width: 44px;
+   height: 44px;
+   margin-right: 12px;
+   object-fit: contain;
+ }
+ .brand-title {
+   font-weight: 700;
+   font-size: 18px;
+   color: #334351;
+ }
+
+ /* Navigation */
+ .main-nav a {
+   color: #2f2f2f;
+   margin-left: 12px;
+   text-decoration: none;
+   font-weight: 600;
+ }
+ .main-nav a:hover {
+   color: #c94300;
+ }
+
+ /* Main wrapper */
+ .site-main {
+   max-width: 1200px;
+   margin: 20px auto;
+   padding: 12px;
+ }
+
+ /* Hero */
+ .hero {
+   background: #fff3d9;
+   border-radius: 20px;
+   padding: 24px;
+   margin-bottom: 24px;
+ }
+ .hero-inner {
+   display: flex;
+   gap: 20px;
+   align-items: center;
+   flex-wrap: wrap;
+ }
+ .hero-left,
+ .hero-right {
+   flex: 1 1 320px;
+   min-width: 260px;
+ }
+ .hero-image {
+   max-width: 100%;
+   border-radius: 12px;
+   display: block;
+ }
+ .hero-title {
+   font-size: 36px;
+   margin: 0 0 12px 0;
+   color: #2f2f2f;
+ }
+ .hero-sub {
+   font-size: 16px;
+   color: #444;
+   margin-bottom: 18px;
+ }
+ .hero-actions .btn + .btn {
+   margin-left: 8px;
+ }
+
+ /* Buttons */
+ .btn {
+   display: inline-block;
+   padding: 10px 18px;
+   border-radius: 20px;
+   text-decoration: none;
+   font-weight: 700;
+   font-size: 14px;
+   border: none;
+   cursor: pointer;
+ }
+ .btn.primary {
+   background: #334351;
+   color: #fff;
+ }
+ .btn.secondary {
+   background: #fdefc7;
+   color: #334351;
+ }
+ .btn:hover {
+   opacity: 0.95;
+ }
+
+ /* Sections */
+ .section {
+   margin-top: 26px;
+ }
+ .section-title {
+   font-size: 28px;
+   font-weight: 700;
+   margin-bottom: 12px;
+   text-align: left;
+   color: #2f2f2f;
+ }
+ .section-text {
+   max-width: 900px;
+   color: #333;
+   line-height: 1.6;
+ }
+
+ /* Departments */
+ .departments-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 16px;
+ }
+ .dept-card {
+   background: #fffbe3;
+   padding: 16px;
+   border-radius: 12px;
+   min-width: 260px;
+   flex: 1 1 280px;
+   box-shadow: 0 2px 12px rgba(70,60,30,0.05);
+ }
+ .dept-title {
+   margin: 0 0 8px 0;
+   color: #334351;
+ }
+ .dept-desc {
+   margin: 0 0 12px 0;
+   color: #444;
+ }
+ .program-list {
+   margin: 0;
+   padding-left: 18px;
+   color: #333;
+ }
+ .program-item {
+   margin-bottom: 6px;
+ }
+
+ /* Contact */
+ .contact-form {
+   max-width: 480px;
+   margin-top: 12px;
+ }
+ .form-input,
+ .form-textarea {
+   width: 100%;
+   padding: 10px 12px;
+   border-radius: 8px;
+   border: 1px solid #ddd;
+   margin-bottom: 10px;
+   font-size: 14px;
+   font-family: inherit;
+   resize: vertical;
+ }
+ .form-input:focus,
+ .form-textarea:focus {
+   outline: none;
+   border-color: #c94300;
+ }
+ .contact-success {
+   color: #2f8a4d;
+   margin-top: 10px;
+ }
+
+ /* Footer */
+ .site-footer {
+   text-align: center;
+   color: #334351;
+   padding: 24px;
+   margin-top: 28px;
+ }
+
+ /* Responsive */
+ @media (max-width: 900px) {
+   .hero-inner {
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+   }
+   .main-nav {
+     display: none; /* simple mobile nav hide; add mobile menu if desired */
+   }
+   .section-title {
+     text-align: center;
+   }
+ }

@@ -1,0 +1,33 @@
+<%# app/views/departments/show.html.erb - Department detail and its programs %>
+
+<h1 class="section-title"><%= @department.name %></h1>
+<p class="section-text"><%= simple_format(@department.description) %></p>
+
+<h2 style="margin-top:20px;">Ծրագրեր</h2>
+
+<% if @department.programs.any? %>
+  <div class="programs-grid" style="display:flex;flex-wrap:wrap;gap:16px;">
+    <% @department.programs.each do |prog| %>
+      <div class="program-card" style="background:#fffbe3;padding:12px;border-radius:10px;min-width:260px;flex:1 1 300px;">
+        <div class="program-image" style="margin-bottom:8px;">
+          <% if prog.image.attached? %>
+            <%= link_to image_tag(url_for(prog.image.variant(resize_to_limit: [400, 260])), alt: prog.name, class: "prog-img"), department_program_path(@department, prog) %>
+          <% else %>
+            <%= link_to image_tag("/images/program-placeholder.png", alt: prog.name, class: "prog-img"), department_program_path(@department, prog) %>
+          <% end %>
+        </div>
+
+        <div class="program-body">
+          <h3><%= link_to prog.name, department_program_path(@department, prog) %></h3>
+          <p><%= truncate(prog.description, length: 180) %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p><em>Այս բաժնում ծրագրեր չկան։</em></p>
+<% end %>
+
+<p style="margin-top:18px;">
+  <%= link_to "Վերադառնալ Մասնագիտությունների ցուցակին", departments_path, class: "btn secondary" %>
+</p>

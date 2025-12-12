@@ -1,0 +1,212 @@
+// //
+// // Styles for the homepage hero and departments preview
+// //
+//
+// // Simple variables (adjust to match your site)
+// $primary: #0066cc;
+// $secondary: #f3f4f6;
+// $text: #222;
+// $muted: #666;
+// $card-bg: #fff;
+// $radius: 8px;
+// $container-padding: 16px;
+// $max-width: 1200px;
+//
+// .container {
+//   max-width: $max-width;
+//   margin: 0 auto;
+//   padding: 0 $container-padding;
+// }
+//
+// /* Hero */
+// .hero {
+//   background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+//   padding: 36px 0;
+//
+//   .hero-inner {
+//     display: flex;
+//     gap: 24px;
+//     align-items: center;
+//     flex-wrap: wrap;
+//   }
+//
+//   .hero-left {
+//     flex: 1 1 320px;
+//     display: flex;
+//     justify-content: center;
+//   }
+//
+//   .hero-image {
+//     width: 100%;
+//     max-width: 520px;
+//     height: auto;
+//     border-radius: $radius;
+//     object-fit: cover;
+//     box-shadow: 0 6px 20px rgba(16,24,40,0.06);
+//   }
+//
+//   .hero-right {
+//     flex: 1 1 360px;
+//     min-width: 260px;
+//   }
+//
+//   .hero-title {
+//     font-size: 28px;
+//     margin: 0 0 10px;
+//     color: $text;
+//   }
+//
+//   .hero-sub {
+//     margin: 0 0 14px;
+//     color: $muted;
+//     line-height: 1.5;
+//   }
+//
+//   .hero-actions {
+//     display: flex;
+//     gap: 10px;
+//     margin-top: 8px;
+//   }
+// }
+//
+// /* Buttons (small utility styles) */
+// .btn {
+//   display: inline-block;
+//   padding: 8px 14px;
+//   border-radius: 6px;
+//   text-decoration: none;
+//   font-weight: 600;
+//   font-size: 14px;
+//   line-height: 1;
+//   text-align: center;
+//   cursor: pointer;
+//   &--primary {
+//     background: $primary;
+//     color: white;
+//   }
+//   &--secondary {
+//     background: transparent;
+//     border: 1px solid #e6e9ef;
+//     color: $text;
+//   }
+// }
+//
+// /* Departments section */
+// .departments-section {
+//   padding: 40px 0;
+//   background: #fff;
+//
+//   .section-title--small {
+//     font-size: 22px;
+//     margin-bottom: 18px;
+//     color: $text;
+//   }
+//
+//   .departments-list {
+//     display: grid;
+//     grid-template-columns: repeat(2, 1fr);
+//     gap: 18px;
+//     margin-bottom: 18px;
+//   }
+//
+//   .dept-card {
+//     background: $card-bg;
+//     padding: 16px;
+//     border-radius: $radius;
+//     box-shadow: 0 4px 14px rgba(12, 20, 40, 0.04);
+//     border: 1px solid #f1f3f5;
+//
+//     .dept-title {
+//       margin: 0 0 6px;
+//       font-size: 18px;
+//       .dept-title__link {
+//         color: $text;
+//         text-decoration: none;
+//       }
+//     }
+//
+//     .dept-desc {
+//       margin: 0 0 12px;
+//       color: $muted;
+//       font-size: 14px;
+//     }
+//
+//     .programs-preview {
+//       display: flex;
+//       flex-direction: column;
+//       gap: 10px;
+//     }
+//
+//     .program-preview {
+//       display: flex;
+//       gap: 12px;
+//       align-items: flex-start;
+//       padding: 6px 0;
+//       border-top: 1px dashed #f3f4f6;
+//
+//       &:first-child {
+//         border-top: none;
+//         padding-top: 0;
+//       }
+//
+//       .prog-thumb {
+//         flex: 0 0 120px;
+//
+//         .prog-thumb__img {
+//           width: 120px;
+//           height: 90px;
+//           object-fit: cover;
+//           border-radius: 6px;
+//           display: block;
+//         }
+//       }
+//
+//       .prog-meta {
+//         flex: 1;
+//         .prog-name {
+//           display: block;
+//           font-weight: 700;
+//           color: $text;
+//           margin-bottom: 6px;
+//           text-decoration: none;
+//         }
+//         .prog-desc {
+//           margin: 0;
+//           color: $muted;
+//           font-size: 13px;
+//         }
+//       }
+//     }
+//   }
+//
+//   .view-all-wrap {
+//     text-align: center;
+//     margin-top: 18px;
+//   }
+//
+//   .view-all-btn {
+//     padding: 10px 18px;
+//   }
+// }
+//
+// /* Responsive */
+// @media (max-width: 900px) {
+//   .hero .hero-inner {
+//     flex-direction: column-reverse;
+//     text-align: center;
+//   }
+//
+//   .hero-left, .hero-right {
+//     width: 100%;
+//   }
+//
+//   .departments-list {
+//     grid-template-columns: 1fr;
+//   }
+//
+//   .dept-card {
+//     .program-preview {
+//       flex-direction: row;
+//     }
+//   }
+// }

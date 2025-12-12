@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
-  get 'contact_messages/create'
-  get 'pages/home'
-  get 'pages/about'
-  get 'pages/student_life'
-  get 'pages/admissions'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root to: "pages#home"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  devise_for :users
+  ActiveAdmin.routes(self) if defined?(ActiveAdmin)
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  resources :departments, only: [:index, :show] do
+    resources :programs, only: [:show]
+  end
+
+  post "/contact_messages", to: "contact_messages#create"
+
+  get "/about", to: "pages#about"
+  get "/student_life", to: "pages#student_life"
+  get "/admissions", to: "pages#admissions"
 end

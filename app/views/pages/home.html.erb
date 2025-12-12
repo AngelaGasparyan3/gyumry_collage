@@ -1,2 +1,64 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <% site = SiteSetting.instance rescue nil %>
+      <% if site&.hero_image&.attached? %>
+        <%= image_tag url_for(site.hero_image), alt: (site.hero_alt.presence || "Գյումրի"), class: "hero-image" %>
+      <% else %>
+        <%= image_tag "/images/train-hero.png", alt: "Train hero", class: "hero-image" %>
+      <% end %>
+    </div>
+
+    <div class="hero-right">
+      <h1 class="hero-title"><%= site&.site_name.presence || "Գյումրու Պետական Տեխնիկական Քոլեջ" %></h1>
+      <p class="hero-sub">
+        Հայաստանի առաջատար տեխնիկական քոլեջը՝ Գյումրիի սրտում: Մեր նպատակն է համադրել ավանդույթներն ու նորարարությունը՝ կրթելու ինժեներների և տեխնիկական մասնագետների հաջորդ սերունդը:
+      </p>
+
+      <p class="hero-actions">
+        <a href="#admissions" class="btn primary">Դիմել հիմա</a>
+        <a href="<%= departments_path %>" class="btn secondary">Մասնագիտություններ և Ծրագրեր</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="departments_preview" class="section departments-section">
+  <h2 class="section-title">Մասնագիտություններ և Ծրագրեր</h2>
+
+  <div class="departments-list">
+    <% Department.includes(:programs).limit(4).each do |dept| %>
+      <div class="dept-card">
+        <h3><%= link_to dept.name, department_path(dept) %></h3>
+        <p><%= truncate(dept.description, length: 160) %></p>
+
+        <% if dept.programs.any? %>
+          <div class="programs-preview" style="margin-top:8px;">
+            <% dept.programs.limit(3).each do |prog| %>
+              <div class="program-preview" style="display:flex;align-items:center;margin-bottom:6px;">
+                <% if prog.image.attached? %>
+                  <%= link_to department_program_path(dept, prog) do %>
+                    <%= image_tag url_for(prog.image.variant(resize_to_limit: [120, 90])), alt: prog.name, style: "width:120px;height:90px;object-fit:cover;border-radius:6px;margin-right:10px;" %>
+                  <% end %>
+                <% else %>
+                  <%= link_to department_program_path(dept, prog) do %>
+                    <%= image_tag "/images/program-placeholder.png", alt: prog.name, style: "width:120px;height:90px;object-fit:cover;border-radius:6px;margin-right:10px;" %>
+                  <% end %>
+                <% end %>
+
+                <div class="program-meta">
+                  <%= link_to prog.name, department_program_path(dept, prog), style: "font-weight:700;" %><br>
+                  <small style="color:#666;"><%= truncate(prog.description, length: 80) %></small>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <p style="margin-top:18px;">
+    <%= link_to "Դիտել բոլոր մասնագիտությունները", departments_path, class: "btn primary" %>
+  </p>
+</section>
