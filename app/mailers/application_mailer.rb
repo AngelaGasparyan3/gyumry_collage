@@ -1,4 +1,9 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
-  layout "mailer"
+  default to: "admin@gyumri-college.am",
+  from: "no-reply@gyumri-college.am"
+
+  def new_application(application)
+    @application = application
+    mail(subject: "Նոր դիմում է ստացվել")
+  end
 end

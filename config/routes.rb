@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
-  root to: "pages#home"
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 
-  devise_for :users
-  ActiveAdmin.routes(self) if defined?(ActiveAdmin)
+  scope "(:locale)", locale: /hy|en/ do
+    root "pages#home"
 
-  resources :departments, only: [:index, :show] do
-    resources :programs, only: [:show]
+    get "about", to: "pages#about"
+    get "admissions", to: "pages#admissions"
+
+    resources :programs, only: [:index]
+    resources :departments, only: [:index, :show]
+
+    # Online application form
+    resources :application_forms, only: [:new, :create]
   end
-
-  post "/contact_messages", to: "contact_messages#create"
-
-  get "/about", to: "pages#about"
-  get "/student_life", to: "pages#student_life"
-  get "/admissions", to: "pages#admissions"
 end

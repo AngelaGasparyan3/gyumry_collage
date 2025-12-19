@@ -1,23 +1,29 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :set_locale
+  before_action :load_site_settings
 
-  # If ActiveAdmin is configured to call `authenticate_admin_user!`,
-  # implement it here to reuse Devise's authenticate_user! and then
-  # verify an `admin` flag on the User model.
-  def authenticate_admin_user!
-    # require a signed-in user first
-    authenticate_user!
-
-    # redirect non-admins to home with a message
-    unless current_user && current_user.respond_to?(:admin) && current_user.admin?
-      flash[:alert] = "Դուք չունեք մուտքի իրավունք այս բաժնի համար"
-      redirect_to root_path
-    end
+  def load_site_settings
+    @site = SiteSetting.first
   end
 
-  # ActiveAdmin expects a method to return the current admin user.
-  # Use the existing current_user (Devise) if it's an admin, otherwise nil.
-  def current_admin_user
-    current_user if current_user && current_user.respond_to?(:admin) && current_user.admin?
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
+  
+  def create
+  @application = ApplicationForm.new(application_params)
+
+  if @application.save
+    ApplicationMailer.new_application(@application).deliver_later
+    redirect_to root_path, notice: t("application.success")
+  else
+    render :new, status: :unprocessable_entity
+  end
+end
+
 end

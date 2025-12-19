@@ -6,7 +6,7 @@ ActiveAdmin.register Program do
   filter :name
   filter :department, as: :select, collection: proc { Department.pluck(:name, :id) }
 
-  permit_params :name, :description, :department_id, :image
+  permit_params :name, :description, :department_id, :image, :duration
 
   index do
     selectable_column
@@ -32,6 +32,7 @@ ActiveAdmin.register Program do
       f.input :department, label: "Բաժին"
       f.input :name, label: "Անուն"
       f.input :description, label: "Նկարագիր"
+      f.input :duration, label: "Տևողություն"
       f.input :image, as: :file, label: "Պատկեր (Image)", hint: f.object.image.attached? ? image_tag(url_for(f.object.image), style: "max-width: 200px;") : content_tag(:span, "Չկա պատկերը")
     end
     f.actions

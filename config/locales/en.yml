@@ -28,4 +28,19 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  site:
+    name: "Gyumri State Technical College"
+    hero_caption: "Modern technical education for the future"
+    departments: "Departments"
+    apply_now: "Apply online"
+
+  navigation:
+    home: "Home"
+    departments: "Departments"
+    admissions: "Admissions"
+    contact: "Contact"
+
+  application:
+    title: "Online Application"
+    submit: "Submit"
+    success: "Your application was successfully sent"

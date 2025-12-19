@@ -10,6 +10,8 @@ gem "jbuilder"
 gem "bootsnap", require: false
 gem "image_processing"
 
+
+
 # Authentication and admin
 gem "devise"
 gem "activeadmin"

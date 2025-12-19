@@ -1,36 +1,12 @@
-<%# app/views/departments/index.html.erb - Departments list (Մասնագիտություններ) %>
+<section class="section">
+  <h1 class="section-title">Departments</h1>
 
-<h1 class="section-title">Մասնագիտություններ</h1>
-
-<% if @departments.present? %>
   <div class="departments-list">
     <% @departments.each do |dept| %>
       <div class="dept-card">
-        <h3 class="dept-title">
-          <%= link_to dept.name, department_path(dept) %>
-        </h3>
-        <p class="dept-desc"><%= truncate(dept.description, length: 200) %></p>
-
-        <% if dept.programs.any? %>
-          <ul class="program-list">
-            <% dept.programs.limit(4).each do |prog| %>
-              <li class="program-item">
-                <% if prog.image.attached? %>
-                  <%= link_to department_program_path(dept, prog) do %>
-                    <%= image_tag prog.image.variant(resize_to_limit: [120, 90]), alt: prog.name, style: "vertical-align: middle; margin-right:8px; border-radius:6px;" %>
-                  <% end %>
-                <% end %>
-
-                <%= link_to prog.name, department_program_path(dept, prog) %>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p><em>Ծրագրեր չկան այս բաժնում։</em></p>
-        <% end %>
+        <h3><%= dept.name %></h3>
+        <p><%= dept.description %></p>
       </div>
     <% end %>
   </div>
-<% else %>
-  <p>Մասնագիտությունները դեռ չեն ավելացվել։</p>
-<% end %>
+</section>

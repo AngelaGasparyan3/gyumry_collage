@@ -1,9 +1,13 @@
 class PagesController < ApplicationController
   def home
-    @departments = Department.includes(:programs).all
+    @site = SiteSetting.first
+    @departments = Department.all
+    @programs = Program.all
   end
 
-  def about; end
-  def student_life; end
-  def admissions; end
+  def about
+  end
+
+  def admissions
+  end
 end

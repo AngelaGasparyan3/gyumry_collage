@@ -356,7 +356,8 @@ ActiveAdmin.setup do |config|
  # Tell ActiveAdmin how to get the currently logged in admin user
  config.current_user_method = :current_admin_user
 
+
  # Logout path for Devise users (adjust if needed)
- config.logout_link_path = :destroy_user_session_path
+ config.logout_link_path = :destroy_admin_user_session_path
  config.logout_link_method = :delete
 end

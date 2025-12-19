@@ -10,6 +10,39 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    ActiveAdmin.register_page "Dashboard" do
+  content do
+    columns do
+      column do
+        panel "Applications count" do
+          h3 ApplicationForm.count
+        end
+      end
+
+      column do
+        panel "Programs count" do
+          h3 Program.count
+        end
+      end
+
+      column do
+        panel "Departments count" do
+          h3 Department.count
+        end
+      end
+    end
+
+    panel "Latest applications" do
+      table_for ApplicationForm.order(created_at: :desc).limit(5) do
+        column :full_name
+        column :department
+        column :created_at
+      end
+    end
+  end
+end
+
+
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do

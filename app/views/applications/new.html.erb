@@ -1,0 +1,11 @@
+<h2 class="section-title"><%= t("application.title") %></h2>
+
+<%= form_with model: @application, local: true, class: "application-form" do |f| %>
+  <%= f.text_field :full_name, placeholder: "Անուն Ազգանուն", required: true %>
+  <%= f.email_field :email, placeholder: "Էլ. հասցե", required: true %>
+  <%= f.text_field :phone, placeholder: "Հեռախոս", required: true %>
+  <%= f.text_field :department, placeholder: "Ցանկալի բաժին", required: true %>
+  <%= f.text_area :message, placeholder: "Լրացուցիչ տեղեկություն" %>
+
+  <%= f.submit t("application.submit"), class: "btn primary" %>
+<% end %>

@@ -1,0 +1,29 @@
+hy:
+  site:
+    name: "Գյումրու Պետական Տեխնիկական Քոլեջ"
+    hero_caption: "Ժամանակակից մասնագիտական կրթություն ապագայի համար"
+    departments: "Բաժիններ"
+    apply_now: "Դիմել առցանց"
+    programs: "Ծրագրեր"
+
+  navigation:
+    home: "Գլխավոր"
+    departments: "Բաժիններ"
+    admissions: "Ընդունելություն"
+    contact: "Կապ"
+
+  application:
+    title: "Առցանց դիմում"
+    submit: "Ուղարկել"
+    success: "Ձեր դիմումը հաջողությամբ ուղարկվել է"
+  time:
+    formats:
+      default: "%d.%m.%Y %H:%M"
+      short: "%d %b %H:%M"
+      long: "%d %B %Y, %H:%M"
+
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d %b"
+      long: "%d %B %Y"

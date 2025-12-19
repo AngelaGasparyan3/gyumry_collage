@@ -1,0 +1,27 @@
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.program-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  transition: transform .2s;
+}
+
+.program-card:hover {
+  transform: translateY(-6px);
+}
+
+.program-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.department {
+  font-size: 14px;
+  color: #777;
+}

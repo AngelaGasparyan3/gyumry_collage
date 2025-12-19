@@ -1,0 +1,44 @@
+<section class="application-section">
+  <div class="application-card">
+    <h1 class="application-title">
+      <%= t("application.title", default: "Դիմում ընդունելություն") %>
+    </h1>
+
+    <p class="application-subtitle">
+      Լրացրեք ձևը և մենք կկապվենք Ձեզ հետ
+    </p>
+
+    <%= form_with model: @application, local: true, class: "application-form" do |f| %>
+
+      <div class="form-group">
+        <%= f.label :full_name, "Անուն Ազգանուն" %>
+        <%= f.text_field :full_name, required: true, placeholder: "Օր. Աննա Սարգսյան" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, "Էլ․ հասցե" %>
+        <%= f.email_field :email, required: true, placeholder: "example@mail.com" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone, "Հեռախոսահամար" %>
+        <%= f.text_field :phone, placeholder: "+374 xx xxx xxx" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :department, "Բաժին / Մասնագիտություն" %>
+        <%= f.text_field :department, placeholder: "Տեղեկատվական տեխնոլոգիաներ" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :message, "Հաղորդագրություն" %>
+        <%= f.text_area :message, rows: 4, placeholder: "Ձեր հարցը կամ մեկնաբանությունը" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "Ուղարկել դիմումը", class: "btn-submit" %>
+      </div>
+
+    <% end %>
+  </div>
+</section>

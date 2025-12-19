@@ -1,0 +1,18 @@
+<section class="programs">
+  <h1 class="section-title"><%= t("programs.title") %></h1>
+
+  <div class="programs-grid">
+    <% @programs.each do |program| %>
+      <div class="program-card">
+        <div class="program-icon">🎓</div>
+
+        <h3><%= program.name %></h3>
+        <p><%= program.description %></p>
+
+        <span class="department">
+          <%= program.department.name %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</section>

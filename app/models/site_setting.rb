@@ -1,6 +1,7 @@
 class SiteSetting < ApplicationRecord
   # Attachments
   has_one_attached :hero_image
+  has_one_attached :logo
 
   # Ensure a singleton instance convenience method
   def self.instance
