@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     get "admissions", to: "pages#admissions"
 
     resources :programs, only: [:index]
-    resources :departments, only: [:index, :show]
+    # resources :departments, only: [:index, :show]
+    resources :departments, only: [:index, :show] do
+  resources :programs, only: [:show]
+end
+get 'student_life', to: 'pages#student_life', as: 'student_life'
+
 
     # Online application form
     resources :application_forms, only: [:new, :create]

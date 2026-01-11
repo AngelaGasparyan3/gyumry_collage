@@ -1,46 +1,370 @@
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <h1 class="hero-title"><%= @site.site_name %></h1>
-      <p class="hero-sub"><%= @site.hero_caption %></p>
-      <div class="hero-actions">
-        <%= link_to "Departments", departments_path, class: "btn primary" %>
-        <%= link_to t("application.apply"), new_application_form_path, class: "btn primary" %>
-      </div>
+<% site = SiteSetting.instance rescue nil %>
+
+<!-- Hero Section with More Transparency -->
+<section class="hero-modern">
+  <div class="hero-overlay-transparent"></div>
+  <% if site&.hero_image&.attached? %>
+    <div class="hero-bg" style="background-image: url('<%= url_for(site.hero_image) %>');"></div>
+  <% end %>
+
+  <div class="hero-content">
+    <div class="hero-badge animate-fade-in">🎓 Հայաստանի Առաջատար Տեխնիկական Քոլեջ</div>
+    <h1 class="hero-heading animate-slide-up"><%= site&.site_name.presence || "Գյումրու Պետական Տեխնիկական Քոլեջ" %></h1>
+
+    <% if site&.hero_caption.present? %>
+      <p class="hero-description animate-slide-up delay-1"><%= site.hero_caption %></p>
+    <% else %>
+      <p class="hero-description animate-slide-up delay-1">
+        Մեր նպատակն է համադրել ավանդույթներն ու նորարարությունը՝ կրթելու ինժեներների և տեխնիկական մասնագետների հաջորդ սերունդը
+      </p>
+    <% end %>
+
+    <div class="hero-cta animate-slide-up delay-2">
+      <a href="<%= admissions_path %>" class="cta-button primary-cta">
+        <span>Դիմել Հիմա</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="<%= departments_path %>" class="cta-button secondary-cta">
+        Բոլոր Մասնագիտությունները
+      </a>
     </div>
 
-    <% if @site.hero_image.attached? %>
-      <div class="hero-right">
-        <%= image_tag @site.hero_image, class: "hero-image", alt: @site.hero_alt %>
+    <div class="hero-stats animate-fade-in delay-3">
+      <div class="stat-item">
+        <div class="stat-number counter" data-target="<%= Department.count %>">0</div>
+        <div class="stat-label">Բաժիններ</div>
       </div>
-    <% end %>
-  </div>
-</div>
-
-<section class="section">
-  <h2 class="section-title">Departments</h2>
-  <div class="departments-list">
-    <% @departments.each do |d| %>
-      <div class="dept-card">
-        <h3><%= d.name %></h3>
-        <p><%= truncate(d.description, length: 120) %></p>
+      <div class="stat-item">
+        <div class="stat-number counter" data-target="<%= Program.count %>">0</div>
+        <div class="stat-label">Ծրագրեր</div>
       </div>
-    <% end %>
+      <div class="stat-item">
+        <div class="stat-number counter" data-target="500">0</div>
+        <div class="stat-label">Ուսանողներ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <span>Scroll</span>
   </div>
 </section>
 
-<section class="section">
-  <h2 class="section-title">Quick Facts</h2>
-  <div class="stats-grid">
-    <div class="stat-card"><strong><%= @departments.count %></strong> Departments</div>
-    <div class="stat-card"><strong><%= @programs.count %></strong> Programs</div>
-    <div class="stat-card"><strong>1500+</strong> Students</div>
-    <div class="stat-card"><strong>50+</strong> Years of Education</div>
+<!-- About Section -->
+<section class="about-section">
+  <div class="container-modern">
+    <div class="section-header center">
+      <span class="section-badge animate-on-scroll">Մեր Մասին</span>
+      <h2 class="section-title-modern animate-on-scroll">Ինչու՞ Ընտրել Մեզ</h2>
+      <p class="section-subtitle animate-on-scroll">Գյումրիի սրտում գործող առաջատար տեխնիկական կրթական հաստատություն</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card animate-on-scroll" style="--delay: 0s;">
+        <div class="feature-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="8" fill="#FFE4CC"/>
+            <path d="M20 12V28M12 20H28" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Փորձառու Դասախոսներ</h3>
+        <p>Մեր թիմը բաղկացած է բարձր որակավորում ունեցող մասնագետներից</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll" style="--delay: 0.2s;">
+        <div class="feature-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="8" fill="#E0F4FF"/>
+            <path d="M15 20L18 23L25 16" stroke="#0095FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Ժամանակակից Սարքավորումներ</h3>
+        <p>Լաբորատորիաներ և աշխատարաններ նորագույն տեխնոլոգիաներով</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll" style="--delay: 0.4s;">
+        <div class="feature-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="8" fill="#E8F5E9"/>
+            <circle cx="20" cy="20" r="6" stroke="#4CAF50" stroke-width="3"/>
+          </svg>
+        </div>
+        <h3>Աշխատանքի Հնարավորություններ</h3>
+        <p>Ուղղակի կապեր առաջատար ընկերությունների հետ</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="cta">
-  <h2>Apply Today</h2>
-  <p>Start your professional future with us.</p>
-  <%= link_to t("application.apply"), new_application_form_path, class: "btn primary" %>
+<!-- Programs Section -->
+<section class="programs-section">
+  <div class="container-modern">
+    <div class="section-header center">
+      <span class="section-badge animate-on-scroll">Մասնագիտություններ</span>
+      <h2 class="section-title-modern animate-on-scroll">Ուսումնական Ծրագրեր</h2>
+      <p class="section-subtitle animate-on-scroll">Ընտրեք ձեր ապագա մասնագիտությունը մեր լայն տեսականուց</p>
+    </div>
+
+    <div class="programs-grid">
+      <% @departments.each_with_index do |dept, index| %>
+        <div class="program-card animate-on-scroll" style="--delay: <%= index * 0.1 %>s;">
+          <div class="program-card-inner">
+            <div class="program-header">
+              <div class="program-number"><%= sprintf('%02d', index + 1) %></div>
+              <div class="program-badge"><%= dept.programs.count %> Ծրագիր</div>
+            </div>
+
+            <h3 class="program-title"><%= dept.name %></h3>
+            <p class="program-description"><%= truncate(dept.description, length: 120) %></p>
+
+            <% if dept.programs.any? %>
+              <div class="program-list-mini">
+                <% dept.programs.limit(3).each do |prog| %>
+                  <div class="program-item-mini">
+                    <% if prog.image.attached? %>
+                      <div class="program-thumb">
+                        <%= image_tag prog.image.variant(resize_to_limit: [80, 60]), alt: prog.name %>
+                      </div>
+                    <% end %>
+                    <div class="program-info">
+                      <%= link_to prog.name, [dept, prog], class: "program-link" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
+            <%= link_to department_path(dept), class: "program-view-more" do %>
+              <span>Իմանալ Ավելին</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="section-cta">
+      <%= link_to departments_path, class: "view-all-button animate-on-scroll" do %>
+        <span>Դիտել Բոլոր Մասնագիտությունները</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      <% end %>
+    </div>
+  </div>
 </section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+  <div class="container-modern">
+    <div class="contact-wrapper">
+      <div class="contact-info animate-on-scroll">
+        <h2>Կապ Մեզ Հետ</h2>
+        <p>Ունե՞ք հարցեր: Մենք այստեղ ենք օգնելու ձեզ</p>
+
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <h4>Հասցե</h4>
+              <p>Վարդանանց 1, Գյումրի, Հայաստան</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <h4>Հեռախոս</h4>
+              <p>+374 (312) 5-XX-XX</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <h4>Էլ․ Հասցե</h4>
+              <p>info@gstc.am</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper animate-on-scroll" style="--delay: 0.3s;">
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="contact_name">Անուն</label>
+            <input type="text" id="contact_name" name="name" required placeholder="Ձեր անունը">
+          </div>
+
+          <div class="form-group">
+            <label for="contact_email">Էլ․ Հասցե</label>
+            <input type="email" id="contact_email" name="email" required placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="contact_message">Հաղորդագրություն</label>
+            <textarea id="contact_message" name="message" rows="5" required placeholder="Ձեր հաղորդագրությունը..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-button">
+            <span>Ուղարկել</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M18 2L9 11M18 2l-6 16-3-7-7-3 16-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div id="formMessage" class="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container-modern">
+    <div class="cta-box animate-on-scroll">
+      <div class="cta-content">
+        <h2>Պատրա՞ստ ես սկսել քո ուղին դեպի հաջողություն</h2>
+        <p>Միացիր մեզ և ստացիր որակյալ կրթություն ժամանակակից տեխնիկական բնագավառներում</p>
+        <div class="cta-buttons">
+          <a href="<%= admissions_path %>" class="cta-btn primary">Դիմել Հիմա</a>
+          <a href="<%= about_path %>" class="cta-btn secondary">Ավելին Մեր Մասին</a>
+        </div>
+      </div>
+      <div class="cta-decoration">
+        <div class="decoration-circle"></div>
+        <div class="decoration-circle"></div>
+        <div class="decoration-circle"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Counter Animation
+document.addEventListener('DOMContentLoaded', function() {
+  const counters = document.querySelectorAll('.counter');
+
+  const animateCounter = (counter) => {
+    const target = parseInt(counter.getAttribute('data-target'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+
+    const updateCounter = () => {
+      current += step;
+      if (current < target) {
+        counter.textContent = Math.floor(current) + '+';
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.textContent = target + '+';
+      }
+    };
+
+    updateCounter();
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  counters.forEach(counter => observer.observe(counter));
+
+  // Scroll animations
+  const scrollElements = document.querySelectorAll('.animate-on-scroll');
+
+  const elementInView = (el, offset = 100) => {
+    const elementTop = el.getBoundingClientRect().top;
+    return elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+  };
+
+  const displayScrollElement = (element) => {
+    element.classList.add('scrolled');
+  };
+
+  const handleScrollAnimation = () => {
+    scrollElements.forEach((el) => {
+      if (elementInView(el)) {
+        displayScrollElement(el);
+      }
+    });
+  };
+
+  window.addEventListener('scroll', handleScrollAnimation);
+  handleScrollAnimation();
+
+  // Contact Form
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {
+        contact_message: {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message')
+        }
+      };
+
+      try {
+        const response = await fetch('/contact_messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        const messageEl = document.getElementById('formMessage');
+
+        if (result.success) {
+          messageEl.textContent = 'Շնորհակալություն! Ձեր հաղորդագրությունը ուղարկված է։';
+          messageEl.className = 'form-message success';
+          form.reset();
+        } else {
+          messageEl.textContent = 'Սխալ է տեղի ունեցել։ Փորձեք կրկին։';
+          messageEl.className = 'form-message error';
+        }
+
+        setTimeout(() => {
+          messageEl.textContent = '';
+          messageEl.className = 'form-message';
+        }, 5000);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  }
+});
+</script>
