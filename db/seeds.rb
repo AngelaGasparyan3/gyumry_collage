@@ -62,3 +62,18 @@ if ActiveRecord::Base.connection.data_source_exists?('site_settings')
 else
   puts "site_settings table not present; run rails db:migrate"
 end
+
+# Create initial locales if they don't exist
+Locale.find_or_create_by!(code: 'hy') do |l|
+  l.name = 'Հայերեն'
+  l.enabled = true
+  l.default_locale = true
+  l.position = 0
+end
+
+Locale.find_or_create_by!(code: 'en') do |l|
+  l.name = 'English'
+  l.enabled = true
+  l.default_locale = false
+  l.position = 1
+end

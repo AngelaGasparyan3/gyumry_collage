@@ -1,0 +1,25 @@
+<h1>Locales</h1>
+
+<table>
+  <thead>
+    <tr><th>Code</th><th>Name</th><th>Enabled</th><th>Default</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% @locales.each do |loc| %>
+      <tr>
+        <td><%= loc.code %></td>
+        <td><%= loc.name %></td>
+        <td><%= loc.enabled? %></td>
+        <td><%= loc.default_locale? %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_locale_path(loc) %> |
+          <%= button_to 'Default', set_default_admin_locale_path(loc), method: :post %> |
+          <%= button_to(loc.enabled? ? 'Disable' : 'Enable', toggle_enabled_admin_locale_path(loc), method: :post) %> |
+          <%= link_to 'Delete', admin_locale_path(loc), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Locale', new_admin_locale_path %>

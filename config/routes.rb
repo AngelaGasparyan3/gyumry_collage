@@ -11,10 +11,10 @@ Rails.application.routes.draw do
     resources :programs, only: [:index]
     # resources :departments, only: [:index, :show]
     resources :departments, only: [:index, :show] do
-  resources :programs, only: [:show]
-end
+      resources :programs, only: [:show]
+    end
 get 'student_life', to: 'pages#student_life', as: 'student_life'
-
+post '/set_locale', to: 'locale_switcher#update', as: :set_locale
 
     # Online application form
     resources :application_forms, only: [:new, :create]

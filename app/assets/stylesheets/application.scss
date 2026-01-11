@@ -3,6 +3,7 @@
  * Replace app/assets/stylesheets/application.css
  */
 @import "footer";
+@import "fonts";
 :root {
   --primary-color: #FF6B35;
   --secondary-color: #004E89;
@@ -19,6 +20,23 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
+}
+
+/* small locale button styles */
+.locale-form { display:flex; gap:8px; align-items:center; margin-left:10px; }
+.locale-button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: inherit;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.locale-button.active {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
 }
 
 * {
