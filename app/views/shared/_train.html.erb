@@ -1,95 +1,11 @@
-<script>
-(function() {
-  // Prevent double initialization across turbo loads
-  if (window.__gstc_train_initialized) return;
-  window.__gstc_train_initialized = true;
+<div class="scene">
+  <div class="rails"></div>
 
-  function cleanupDuplicateTrains() {
-    const trains = document.querySelectorAll('.page-train');
-    if (trains.length <= 1) return;
-    // Keep the first and remove others
-    trains.forEach((el, idx) => {
-      if (idx === 0) return;
-      el.remove();
-    });
-    // Also remove duplicate controls if any
-    const controls = document.querySelectorAll('.train-control');
-    if (controls.length > 1) {
-      controls.forEach((el, idx) => { if (idx !== 0) el.remove(); });
-    }
-  }
+  <img
+    src="/assets/train.svg"
+    alt="Train"
+    class="train"
+  />
 
-  function initTrain() {
-    cleanupDuplicateTrains();
-
-    const pageTrain = document.querySelector('.page-train');
-    const control = document.querySelector('.train-control');
-    const icon = document.getElementById('trainIcon');
-    const label = document.getElementById('trainControlLabel');
-    const STORAGE_KEY = 'gstc_train_paused';
-
-    if (!pageTrain || !control) return;
-
-    // Respect user's prefers-reduced-motion
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) {
-      pageTrain.classList.add('paused');
-      control.style.display = 'none';
-      return;
-    }
-
-    function setPaused(paused, persist=true) {
-      if (paused) {
-        pageTrain.classList.add('paused');
-        control.setAttribute('aria-pressed', 'true');
-        if (icon) icon.innerHTML = '<path d="M6 4v16l12-8L6 4z" fill="currentColor"/>';
-        if (label) label.textContent = 'Play';
-        control.title = 'Play train';
-      } else {
-        pageTrain.classList.remove('paused');
-        control.setAttribute('aria-pressed', 'false');
-        if (icon) icon.innerHTML = '<path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/>';
-        if (label) label.textContent = 'Pause';
-        control.title = 'Pause train';
-      }
-      if (persist) {
-        try { localStorage.setItem(STORAGE_KEY, paused ? '1' : '0'); } catch(e) {}
-      }
-    }
-
-    // Init from localStorage
-    let stored = null;
-    try { stored = localStorage.getItem(STORAGE_KEY); } catch(e) {}
-    setPaused(stored === '1', false);
-
-    // Avoid adding multiple listeners by storing flag on control
-    if (!control.__gstc_listeners_added) {
-      control.addEventListener('click', function(e) {
-        e.preventDefault();
-        const paused = pageTrain.classList.contains('paused');
-        setPaused(!paused, true);
-      });
-      control.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          control.click();
-        }
-      });
-      pageTrain.addEventListener('mouseenter', () => setPaused(true, false));
-      pageTrain.addEventListener('mouseleave', () => {
-        const storedVal = (() => { try { return localStorage.getItem(STORAGE_KEY); } catch(e) { return null; } })();
-        if (storedVal !== '1') setPaused(false, false);
-      });
-      control.__gstc_listeners_added = true;
-    }
-  }
-
-  // Run on initial load and on Turbo visits (if Turbo is used)
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initTrain();
-  } else {
-    document.addEventListener('DOMContentLoaded', initTrain);
-  }
-  document.addEventListener('turbo:load', initTrain);
-})();
-</script>
+  <div class="headlight"></div>
+</div>
