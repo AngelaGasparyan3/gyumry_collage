@@ -1,109 +1,87 @@
-/* ===== SCENE ===== */
-.scene {
-  position: relative;
+/* Header full-width train (rails removed, continuous smooth travel)
+   Tune variables below to adjust size/speed.
+*/
+
+:root {
+  --header-train-height: 76px;
+  --header-train-duration: 40s; /* increase = slower */
+  --header-top-offset: 12px;
+  --header-train-opacity: 1;
+}
+
+/* fixed, full-width header train container */
+.header-train {
+  position: fixed;
+  left: 0;
+  top: var(--header-top-offset);
+  width: 100vw;
+  height: calc(var(--header-train-height) + 12px);
+  pointer-events: none;
+  z-index: 1200;
+  display: block;
+  overflow: visible;
+  transform: translateZ(0);
+  opacity: var(--header-train-opacity);
+  transition: opacity 280ms ease;
+}
+
+/* horizontal mover spans viewport — animate translateX here only */
+.header-train .train-mover {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  height: 300px;
-  overflow: hidden;
-  background: linear-gradient(#87ceeb, #e0f6ff);
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  will-change: transform;
+  animation: header-train-move var(--header-train-duration) linear infinite;
 }
 
-/* ===== RAILS ===== */
-.rails {
-  position: absolute;
-  bottom: 40px;
-  width: 200%;
-  height: 40px;
-  background:
-    repeating-linear-gradient(
-      to right,
-      #555 0 6px,
-      #222 6px 18px
-    );
-  animation: railsMove 0.5s linear infinite;
+/* the image itself does only the vertical bob */
+.header-train .train {
+  height: var(--header-train-height);
+  width: auto;
+  display: block;
+  pointer-events: none;
+  transform-origin: center;
+  margin-left: 8%;
+  margin-top: 8px;
+  will-change: transform;
+  animation: header-train-bob 2.0s ease-in-out infinite;
 }
 
-@keyframes railsMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(-36px); }
+/* continuous LEFT->RIGHT keyframes (NO stops) */
+@keyframes header-train-move {
+  0%   { transform: translateX(-40%); } /* start off-left */
+  100% { transform: translateX(135%); } /* end off-right */
 }
 
-/* ===== TRAIN ===== */
-.train {
-  position: absolute;
-  bottom: 60px;
-  left: 20%;
-  width: 240px;
-  height: 150px;
-  animation: trainBounce 0.6s ease-in-out infinite;
-  z-index: 2;
-}
-
-@keyframes trainBounce {
+/* gentle vertical bob on the image (no X transform here) */
+@keyframes header-train-bob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(2px); }
+  50%     { transform: translateY(0); }
 }
 
-/* ===== HEADLIGHT ===== */
-.headlight {
-  position: absolute;
-  bottom: 102px;
-  left: calc(20% + 215px);
-  width: 14px;
-  height: 14px;
-  background: #fff6a0;
-  border-radius: 50%;
-  z-index: 3;
-  box-shadow:
-    0 0 10px #fff6a0,
-    0 0 25px rgba(255, 246, 160, 0.9);
-  animation: headlightPulse 1.4s ease-in-out infinite;
+/* hide headlight by default (optional) */
+.header-train .headlight { display: none; }
+
+/* subtle "behind" state */
+.header-train.behind {
+  opacity: 0.5 !important;
+  pointer-events: none;
 }
 
-@keyframes headlightPulse {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
+/* responsive: hide on small screens */
+@media (max-width: 760px) {
+  .header-train { display: none !important; }
 }
 
-/* ===== NIGHT MODE ===== */
-@media (prefers-color-scheme: dark) {
-  .scene {
-    background: linear-gradient(#0b132b, #1c2541);
-  }
-
-  .rails {
-    background:
-      repeating-linear-gradient(
-        to right,
-        #777 0 6px,
-        #333 6px 18px
-      );
-  }
-
-  .headlight {
-    box-shadow:
-      0 0 18px #fff6a0,
-      0 0 45px rgba(255, 246, 160, 1);
-  }
-}
-.train::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(200,200,200,0.7);
-  border-radius: 50%;
-  animation: smoke 2s infinite;
-}
-
-@keyframes smoke {
-  0% {
-    transform: translate(0,0) scale(0.6);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(-20px,-30px) scale(1.5);
-    opacity: 0;
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .header-train .train-mover,
+  .header-train .train {
+    animation: none !important;
+    transform: none !important;
   }
 }

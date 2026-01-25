@@ -5,6 +5,7 @@
 @import "footer";
 @import "fonts";
 @import "train";
+@import "nav_dropdown";
 :root {
   --primary-color: #FF6B35;
   --secondary-color: #004E89;
@@ -96,7 +97,7 @@
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 16px 24px;
   display: flex;

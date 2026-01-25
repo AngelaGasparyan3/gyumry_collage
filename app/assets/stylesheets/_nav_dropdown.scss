@@ -1,0 +1,84 @@
+/* Simple nav dropdown styles — import into application.scss (e.g. @import "nav_dropdown";) */
+
+/* container */
+.nav-item.nav-dropdown {
+  position: relative;
+}
+
+/* toggle button visually matches nav-link style */
+.nav-dropdown-toggle {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 0.25rem;
+}
+
+/* caret spacing */
+.nav-dropdown-caret {
+  display: inline-block;
+  font-size: 0.8em;
+  opacity: 0.9;
+  transform-origin: 50% 45%;
+  transition: transform 200ms ease;
+}
+
+/* menu */
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  background: #fff;
+  color: #0b1220;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(11,18,32,0.08);
+  padding: 8px 0;
+  list-style: none;
+  margin: 0;
+  display: none;
+  z-index: 1500;
+  pointer-events: auto; /* menu should accept pointer events */
+}
+
+/* menu items */
+.nav-dropdown-menu li { padding: 0; }
+.nav-dropdown-menu .nav-link-sub {
+  display: block;
+  padding: 8px 16px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* hover / focus */
+.nav-dropdown-menu .nav-link-sub:hover,
+.nav-dropdown-menu .nav-link-sub:focus {
+  background: linear-gradient(90deg,#fff6f3,#fff);
+  color: #e64b2b;
+}
+
+/* OPEN state */
+.nav-item.nav-dropdown.open .nav-dropdown-menu {
+  display: block;
+}
+.nav-item.nav-dropdown.open .nav-dropdown-caret {
+  transform: rotate(180deg);
+}
+
+/* For small screens: make dropdown full width below nav (optional) */
+@media (max-width: 720px) {
+  .nav-item.nav-dropdown .nav-dropdown-menu {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    top: 64px;
+    min-width: auto;
+    border-radius: 10px;
+  }
+}

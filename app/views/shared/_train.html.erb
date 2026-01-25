@@ -1,11 +1,61 @@
-<div class="scene">
-  <div class="rails"></div>
+<div class="header-train" id="pageTrain" aria-hidden="true" role="presentation">
+  <!-- rails removed as requested -->
 
-  <img
-    src="/assets/train.svg"
-    alt="Train"
-    class="train"
-  />
+  <!-- wrapper that animates left→right across the viewport -->
+  <div class="train-mover" aria-hidden="true">
+    <%= image_tag "train.svg", alt: "Train", class: "train" %>
+  </div>
 
-  <div class="headlight"></div>
+  <div class="headlight" aria-hidden="true"></div>
 </div>
+
+<script>
+(function() {
+  if (window.__gstc_header_train_initialized) return;
+  window.__gstc_header_train_initialized = true;
+
+  const TRAIN_ID = 'pageTrain';
+  const trainEl = document.getElementById(TRAIN_ID);
+
+  function positionTrainToNav() {
+    if (!trainEl) return;
+    const nav = document.querySelector('nav.navbar') || document.querySelector('header.site-header-modern');
+    if (!nav) {
+      trainEl.style.top = '12px';
+      return;
+    }
+    const r = nav.getBoundingClientRect();
+    const top = Math.max(6, Math.round(window.scrollY + r.top + (r.height / 2) - (trainEl.offsetHeight / 2)));
+    trainEl.style.top = top + 'px';
+    trainEl.style.position = 'fixed';
+  }
+
+  function ensurePlays() {
+    if (!trainEl) return;
+    trainEl.classList.remove('paused');
+    trainEl.classList.remove('behind');
+    const mover = trainEl.querySelector('.train-mover');
+    const img = trainEl.querySelector('.train');
+    try {
+      if (mover) mover.style.animationPlayState = 'running';
+      if (img) img.style.animationPlayState = 'running';
+      if (img && (!img.style.height || img.style.height === '')) {
+        img.style.height = getComputedStyle(document.documentElement).getPropertyValue('--header-train-height') || '76px';
+      }
+    } catch (e) {}
+  }
+
+  function adapt() {
+    positionTrainToNav();
+    ensurePlays();
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(adapt, 30);
+  } else {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(adapt, 30); });
+  }
+  window.addEventListener('resize', function() { setTimeout(adapt, 60); });
+  document.addEventListener('turbo:load', function() { setTimeout(adapt, 60); });
+})();
+</script>

@@ -1,0 +1,90 @@
+<div class="nav-item nav-dropdown" data-nav-dropdown>
+  <button
+    type="button"
+    class="nav-link nav-dropdown-toggle"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="nav-dropdown-submenu"
+  >
+    Ստորաբաժանումներ
+    <span class="nav-dropdown-caret" aria-hidden="true">▾</span>
+  </button>
+
+  <ul id="nav-dropdown-submenu" class="nav-dropdown-menu" role="menu" aria-label="Ստորաբաժանումներ">
+    <li role="none">
+      <%= link_to (defined?(career_center_path) ? career_center_path : '#'),
+                  class: "nav-link nav-link-sub", role: "menuitem" do %>
+        Կարիերայի կենտրոն
+      <% end %>
+    </li>
+    <li role="none">
+      <%= link_to (defined?(quality_assurance_path) ? quality_assurance_path : '#'),
+                  class: "nav-link nav-link-sub", role: "menuitem" do %>
+        Որակի ապահովման կենտրոն
+      <% end %>
+    </li>
+    <li role="none">
+      <%= link_to (defined?(quality_assurance_path) ? quality_assurance_path : '#'),
+                  class: "nav-link nav-link-sub", role: "menuitem" do %>
+        Ուսանողական Խորհուրդ
+      <% end %>
+    </li>
+  </ul>
+
+  <script>
+    // Lightweight dropdown behavior: toggle, keyboard support, outside click
+    (function () {
+      try {
+        const root = document.currentScript && document.currentScript.parentElement;
+        if (!root) return;
+        const btn = root.querySelector('[data-nav-dropdown] .nav-dropdown-toggle') || root.querySelector('.nav-dropdown-toggle');
+        const menu = root.querySelector('.nav-dropdown-menu');
+
+        // If button/menu not found, return
+        if (!btn || !menu) return;
+
+        // Helper: set expanded state
+        function setExpanded(state) {
+          btn.setAttribute('aria-expanded', state ? 'true' : 'false');
+          root.classList.toggle('open', !!state);
+        }
+
+        // Toggle on click
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+          setExpanded(!isOpen);
+        });
+
+        // Keyboard support: Enter/Space toggles, Esc closes, Arrow keys optionally navigate
+        btn.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          } else if (e.key === 'Escape') {
+            setExpanded(false);
+            btn.focus();
+          }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function (ev) {
+          if (!root.contains(ev.target)) {
+            setExpanded(false);
+          }
+        });
+
+        // Close on Esc anywhere
+        document.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape') setExpanded(false);
+        });
+
+        // Prevent menu items from closing the menu immediately if you want them to stay open:
+        // For now, allow link clicks to close naturally (navigate away).
+      } catch (err) {
+        // fail silently
+        console.error('dropdown init error', err);
+      }
+    })();
+  </script>
+</div>
