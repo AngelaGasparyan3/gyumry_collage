@@ -29,4 +29,10 @@ ActiveAdmin.register Locale do
     resource.set_as_default!
     redirect_to admin_locales_path, notice: "Default locale updated."
   end
+
+  member_action :toggle_enabled, method: :post do
+  resource.update!(enabled: !resource.enabled)
+  redirect_to admin_locales_path, notice: "Locale status updated."
+end
+
 end

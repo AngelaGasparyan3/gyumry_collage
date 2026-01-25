@@ -1,0 +1,119 @@
+// Train animation styles
+// Import this partial in app/assets/stylesheets/application.scss:
+// @import "train";
+
+:root {
+  --train-height: 96px;
+  --train-bottom-offset: 76px; // distance above bottom of viewport
+  --train-duration: 18s; // full travel time (adjust to speed up/slow down)
+  --train-color: #0b1220;
+  --train-accent: #2b8cff;
+  --train-shadow: rgba(11,18,32,0.08);
+  --control-bg: rgba(255,255,255,0.06);
+  --control-color: #ffffff;
+}
+
+.page-train {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--train-bottom-offset);
+  height: var(--train-height);
+  pointer-events: none; /* allow clicks through by default */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  transform: translateZ(0);
+}
+
+/* Track line (subtle) */
+.page-train .track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--train-height) / 4);
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Train wrapper moves across screen */
+.train-wrapper {
+  display: inline-block;
+  height: var(--train-height);
+  will-change: transform;
+  animation: train-move var(--train-duration) linear infinite;
+  pointer-events: none;
+}
+
+/* loop path: start off-screen left -> move to off-screen right */
+@keyframes train-move {
+  0% { transform: translateX(-35vw); }
+  10% { transform: translateX(-5vw); }
+  90% { transform: translateX(105vw); }
+  100% { transform: translateX(135vw); }
+}
+
+/* Wheel rotation */
+.train-wheel {
+  transform-origin: center center;
+  animation: wheel-rotate calc(var(--train-duration) / 2) linear infinite;
+}
+
+@keyframes wheel-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Give the train a subtle shadow */
+.train-svg {
+  filter: drop-shadow(0 8px 18px var(--train-shadow));
+}
+
+/* Pause state */
+.page-train.paused .train-wrapper,
+.page-train.paused .train-wheel {
+  animation-play-state: paused !important;
+}
+
+/* Play/pause control (pointer-events enabled) */
+.train-control {
+  position: fixed;
+  right: 18px;
+  bottom: calc(var(--train-bottom-offset) + var(--train-height) + 10px);
+  z-index: 10000;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--control-bg);
+  color: var(--control-color);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+}
+
+/* small icon spacing */
+.train-control svg { width: 16px; height: 16px; display: block; }
+
+/* reduced motion prefers */
+@media (prefers-reduced-motion: reduce) {
+  .train-wrapper,
+  .train-wheel {
+    animation: none !important;
+    transform: none !important;
+  }
+  .train-control { display: none; } /* hide control if user prefers reduced motion */
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  :root { --train-height: 72px; --train-bottom-offset: 60px; --train-duration: 12s; }
+  .train-control { right: 10px; bottom: calc(var(--train-bottom-offset) + var(--train-height) + 6px); font-size: 12px; padding: 6px 8px; }
+}

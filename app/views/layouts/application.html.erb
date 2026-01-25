@@ -70,11 +70,30 @@
           </button>
         </div>
       </nav>
+      <!-- locale switcher (place near header / nav) -->
+      <div class="locale-switcher" aria-label="Language switcher">
+        <% begin %>
+          <% Locale.enabled.each do |loc| %>
+            <%= link_to loc.code.upcase,
+                        switch_locale_url(loc.code),
+                        class: "locale-button #{'active' if I18n.locale.to_s == loc.code}" %>
+          <% end %>
+        <% rescue => e %>
+          <%# Fallback if DB is unavailable: use I18n.available_locales %>
+          <% I18n.available_locales.each do |l| %>
+            <%= link_to l.to_s.upcase,
+                        switch_locale_url(l.to_s),
+                        class: "locale-button #{'active' if I18n.locale.to_s == l.to_s}" %>
+          <% end %>
+        <% end %>
+      </div>
+
     </header>
 
     <main class="site-main-modern">
       <%= yield %>
     </main>
+    <%= render 'shared/train' %>
 
     <!-- Professional Footer -->
     <footer class="site-footer-modern" role="contentinfo">
@@ -159,23 +178,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- locale switcher (place near header / nav) -->
-      <div class="locale-switcher" aria-label="Language switcher">
-        <% begin %>
-          <% Locale.enabled.each do |loc| %>
-            <%= link_to loc.code.upcase,
-                        switch_locale_url(loc.code),
-                        class: "locale-button #{'active' if I18n.locale.to_s == loc.code}" %>
-          <% end %>
-        <% rescue => e %>
-          <%# Fallback if DB is unavailable: use I18n.available_locales %>
-          <% I18n.available_locales.each do |l| %>
-            <%= link_to l.to_s.upcase,
-                        switch_locale_url(l.to_s),
-                        class: "locale-button #{'active' if I18n.locale.to_s == l.to_s}" %>
-          <% end %>
-        <% end %>
       </div>
 
       <div class="footer-bottom">
